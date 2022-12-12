@@ -1,0 +1,40 @@
+<div class="users-listing">
+  <table id="users">
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Age</th>
+    </tr>
+    <ng-container *ngIf="!users.length; else usersList">
+      <tr>
+        <td colspan="3" class="no-user-found">No user found</td>
+      </tr>
+    </ng-container>
+    <ng-template  #usersList>
+      <tr *ngFor="let user of users;trackBy: userById">
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.age }}</td>
+      </tr>
+    </ng-template>
+   
+  </table>
+</div>
+<div class="user-form">
+  <form [formGroup]="userForm" (submit)="formSubmitted()">
+    <label>First Name</label>
+    <input type="text" formControlName="firstName" />
+    <span class="error" *ngIf="getControls('firstName').invalid && formSubmission">Please enter valid value</span>
+    <br>
+    <label>Last Name</label>
+    <input type="text" formControlName="lastName" />
+    <span class="error" *ngIf="getControls('lastName').invalid && formSubmission">Please enter valid value</span>
+    <br>
+    <label>Age</label>
+    <input type="text" formControlName="age" />
+    <span class="error" *ngIf="getControls('age').invalid && formSubmission">Please enter valid value</span>
+    <br>
+    <input type="submit" value="Submit" />
+  </form>
+</div>
+
